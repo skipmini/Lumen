@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lumen — Learn AI, Calmly</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f4f1ea;
+    --paper: #fbf9f4;
+    --ink: #1a1a17;
+    --muted: #6b675e;
+    --line: #dcd6c8;
+    --clay: #d9643a;
+    --sage: #9bb39a;
+    --sky: #a9c4d9;
+    --sand: #e8d5b0;
+    --night: #1f2a2b;
+    --serif: "Instrument Serif", Georgia, serif;
+    --sans: "Inter", system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--ink); font: 400 16px/1.6 var(--sans); -webkit-font-smoothing: antialiased; }
+  a { color: inherit; text-decoration: none; }
+  .wrap { max-width: 1200px; margin: 0 auto; padding-inline: 24px; }
+
+  /* Nav */
+  nav { display: flex; align-items: center; justify-content: space-between; padding: 28px 0; }
+  .logo { font: 400 28px/1 var(--serif); letter-spacing: -0.01em; display: flex; align-items: center; gap: 10px; }
+  .logo-dot { width: 14px; height: 14px; border-radius: 50%; background: var(--clay); box-shadow: 18px 0 0 -4px var(--ink); margin-right: 14px; }
+  .nav-links { display: flex; gap: 36px; font-size: 14px; color: var(--muted); }
+  .nav-links a:hover { color: var(--ink); }
+  .btn { display: inline-flex; align-items: center; gap: 10px; padding: 12px 22px; border-radius: 999px; font-size: 14px; font-weight: 500; transition: transform .2s ease, background .2s ease; }
+  .btn-dark { background: var(--ink); color: var(--paper); }
+  .btn-dark:hover { transform: translateY(-2px); }
+  .btn-ghost { border: 1px solid var(--ink); }
+  .btn-ghost:hover { background: var(--ink); color: var(--paper); }
+
+  /* Hero */
+  .hero { padding: 64px 0 96px; display: grid; grid-template-columns: 1.1fr 1fr; gap: 64px; align-items: end; }
+  .eyebrow { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); display: flex; align-items: center; gap: 10px; }
+  .eyebrow::before { content: ""; width: 28px; height: 1px; background: var(--ink); }
+  h1 { font: 400 clamp(56px, 8vw, 112px)/0.95 var(--serif); letter-spacing: -0.03em; margin: 28px 0 32px; }
+  h1 em { color: var(--clay); }
+  .lede { font-size: 18px; color: var(--muted); max-width: 440px; margin-bottom: 36px; }
+  .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+
+  /* Mockup images */
+  .img { position: relative; overflow: hidden; border-radius: 6px; }
+  .img::after { /* film grain */
+    content: ""; position: absolute; inset: 0; opacity: .18; mix-blend-mode: multiply; pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .hero-img { aspect-ratio: 4/5; background: var(--night); }
+  .img > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) contrast(1.05); transition: transform .6s ease; }
+  .hero-img::before { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, transparent 55%, rgba(20,28,29,.7)); }
+  .caption { position: absolute; left: 20px; bottom: 18px; right: 20px; display: flex; justify-content: space-between; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.7); z-index: 2; }
+
+  /* Stats */
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--line); margin-bottom: 64px; }
+  .stats div { padding: 28px 24px 0 0; }
+  .stats div + div { padding-left: 24px; border-left: 1px solid var(--line); }
+  .stats b { display: block; font: 400 48px/1 var(--serif); letter-spacing: -0.02em; }
+  .stats span { font-size: 13px; color: var(--muted); }
+
+  /* Marquee strip */
+  .strip { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 22px 0; overflow: hidden; }
+  .strip-track { display: flex; gap: 56px; white-space: nowrap; animation: slide 30s linear infinite; font: italic 400 28px/1 var(--serif); color: var(--muted); }
+  .strip-track span::after { content: "✦"; font-style: normal; font-size: 14px; margin-left: 56px; color: var(--clay); vertical-align: middle; }
+  @keyframes slide { to { transform: translateX(-50%); } }
+
+  /* Section heads */
+  section { padding: 120px 0; }
+  .sec-head { display: flex; justify-content: space-between; align-items: end; gap: 40px; margin-bottom: 56px; }
+  h2 { font: 400 clamp(40px, 5vw, 68px)/1 var(--serif); letter-spacing: -0.02em; max-width: 640px; }
+  h2 em { color: var(--clay); }
+  .sec-head p { color: var(--muted); max-width: 340px; }
+
+  /* Courses */
+  .courses { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .card { background: var(--paper); border: 1px solid var(--line); border-radius: 10px; padding: 14px 14px 24px; transition: transform .3s ease; }
+  .card:hover { transform: translateY(-6px); }
+  .card:hover .img > img { transform: scale(1.04); }
+  .card .img { aspect-ratio: 4/3; margin-bottom: 22px; }
+  .card-meta { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); padding: 0 8px; letter-spacing: .04em; }
+  .card h3 { font: 400 30px/1.1 var(--serif); padding: 10px 8px 8px; }
+  .card p { font-size: 14px; color: var(--muted); padding: 0 8px; }
+  .tag { display: inline-block; padding: 3px 10px; border: 1px solid var(--line); border-radius: 999px; }
+  .card .img { background: var(--line); }
+
+  /* Steps */
+  .dark { background: var(--night); color: var(--paper); }
+  .dark .sec-head p, .dark .step p { color: rgba(251,249,244,.6); }
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid rgba(251,249,244,.15); }
+  .step { padding: 36px 32px 0 0; }
+  .step + .step { padding-left: 32px; border-left: 1px solid rgba(251,249,244,.15); }
+  .step-num { font: italic 400 72px/1 var(--serif); color: var(--clay); }
+  .step h3 { font: 500 20px/1.3 var(--sans); margin: 24px 0 10px; }
+
+  /* Feature split */
+  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; }
+  .split .img { aspect-ratio: 1; background: var(--line); }
+  .split .img > img { opacity: .55; }
+  .chat { position: absolute; inset: 12%; z-index: 2; display: flex; flex-direction: column; gap: 14px; justify-content: center; }
+  .bubble { padding: 14px 18px; border-radius: 18px; font-size: 14px; max-width: 78%; }
+  .bubble.you { background: var(--ink); color: var(--paper); align-self: flex-end; border-bottom-right-radius: 4px; }
+  .bubble.ai { background: var(--sand); border-bottom-left-radius: 4px; }
+  .typing { display: flex; gap: 5px; padding: 16px 18px; }
+  .typing i { width: 7px; height: 7px; border-radius: 50%; background: var(--muted); animation: blink 1.2s infinite; }
+  .typing i:nth-child(2) { animation-delay: .2s; } .typing i:nth-child(3) { animation-delay: .4s; }
+  @keyframes blink { 50% { opacity: .2; } }
+  .checks { list-style: none; margin-top: 32px; border-top: 1px solid var(--line); }
+  .checks li { padding: 18px 0; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; }
+  .checks li span { color: var(--muted); font-size: 14px; }
+
+  /* Quote */
+  .quote { text-align: center; padding-block: 140px; }
+  blockquote { font: 400 clamp(32px, 4.4vw, 60px)/1.1 var(--serif); letter-spacing: -0.02em; max-width: 900px; margin: 0 auto 36px; }
+  .who { display: inline-flex; align-items: center; gap: 14px; font-size: 14px; color: var(--muted); }
+  .avatar { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; filter: grayscale(1); }
+
+  /* CTA + footer */
+  .cta { background: var(--clay); color: var(--paper); border-radius: 16px; padding: 88px 64px; display: flex; justify-content: space-between; align-items: end; gap: 40px; margin-bottom: 64px; }
+  .cta h2 { color: var(--paper); }
+  .cta .btn { background: var(--paper); color: var(--ink); }
+  footer { border-top: 1px solid var(--line); padding: 32px 0 48px; display: flex; justify-content: space-between; font-size: 13px; color: var(--muted); }
+
+  @media (max-width: 860px) {
+    .nav-links { display: none; }
+    .hero, .split { grid-template-columns: 1fr; gap: 48px; }
+    .courses, .steps { grid-template-columns: 1fr; }
+    .stats { grid-template-columns: 1fr 1fr; }
+    .stats div:nth-child(3) { padding-left: 0; border-left: 0; }
+    .step + .step { padding-left: 0; border-left: 0; border-top: 1px solid rgba(251,249,244,.15); margin-top: 36px; }
+    .sec-head, .cta { flex-direction: column; align-items: start; }
+    .cta { padding: 56px 28px; }
+    section { padding: 88px 0; }
+    footer { flex-direction: column; gap: 8px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="wrap">
+  <nav>
+    <a href="#" class="logo"><span class="logo-dot"></span>Lumen</a>
+    <div class="nav-links">
+      <a href="#courses">Courses</a>
+      <a href="#method">Method</a>
+      <a href="#tutor">AI Tutor</a>
+    </div>
+    <a href="#start" class="btn btn-dark">Start learning</a>
+  </nav>
+
+  <div class="hero">
+    <div>
+      <div class="eyebrow">A school for curious minds</div>
+      <h1>Understand AI,<br><em>gently.</em></h1>
+      <p class="lede">Short, beautifully crafted lessons that take you from “what is a neural network?” to building your first model — no math anxiety required.</p>
+      <div class="hero-ctas">
+        <a href="#courses" class="btn btn-dark">Explore courses →</a>
+        <a href="#method" class="btn btn-ghost">How it works</a>
+      </div>
+    </div>
+    <div class="img hero-img" role="img" aria-label="Placeholder photo">
+      <img src="https://picsum.photos/seed/lumen-hero/800/1000" alt="" width="800" height="1000">
+      <div class="caption"><span>Fig. 01 — Emergence</span><span>2026</span></div>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div><b>48k</b><span>Learners worldwide</span></div>
+    <div><b>10 min</b><span>Average lesson</span></div>
+    <div><b>4.9</b><span>Course rating</span></div>
+    <div><b>24</b><span>Languages</span></div>
+  </div>
+</header>
+
+<div class="strip" aria-hidden="true">
+  <div class="strip-track">
+    <span>Machine learning</span><span>Neural networks</span><span>Prompting</span><span>Ethics &amp; safety</span><span>Computer vision</span><span>Language models</span>
+    <span>Machine learning</span><span>Neural networks</span><span>Prompting</span><span>Ethics &amp; safety</span><span>Computer vision</span><span>Language models</span>
+  </div>
+</div>
+
+<main>
+  <section id="courses" class="wrap">
+    <div class="sec-head">
+      <h2>Three paths into <em>artificial intelligence</em></h2>
+      <p>Each course is about two hours, split into ten-minute lessons you can finish on a coffee break.</p>
+    </div>
+    <div class="courses">
+      <article class="card">
+        <div class="img"><img src="https://picsum.photos/seed/lumen-basics/800/600" alt="Placeholder image for the What is AI course" loading="lazy" width="800" height="600"></div>
+        <div class="card-meta"><span class="tag">Beginner</span><span>12 lessons</span></div>
+        <h3>What is AI, really?</h3>
+        <p>The ideas behind the headlines, explained with everyday examples and zero jargon.</p>
+      </article>
+      <article class="card">
+        <div class="img"><img src="https://picsum.photos/seed/lumen-learn/800/600" alt="Placeholder image for the How machines learn course" loading="lazy" width="800" height="600"></div>
+        <div class="card-meta"><span class="tag">Intermediate</span><span>16 lessons</span></div>
+        <h3>How machines learn</h3>
+        <p>Data, patterns and predictions. Train a tiny model in your browser and watch it improve.</p>
+      </article>
+      <article class="card">
+        <div class="img"><img src="https://picsum.photos/seed/lumen-neural/800/600" alt="Placeholder image for the Inside a neural network course" loading="lazy" width="800" height="600"></div>
+        <div class="card-meta"><span class="tag">Advanced</span><span>20 lessons</span></div>
+        <h3>Inside a neural network</h3>
+        <p>Layers, weights and attention. Build intuition for how modern language models think.</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="method" class="dark">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Learning that <em>sticks</em></h2>
+        <p>We designed our method around how people actually learn: little and often, by doing.</p>
+      </div>
+      <div class="steps">
+        <div class="step"><div class="step-num">01</div><h3>Read a short story</h3><p>Each concept starts as a narrative with an illustrated example you'll remember.</p></div>
+        <div class="step"><div class="step-num">02</div><h3>Play with it</h3><p>Interactive sandboxes let you tweak real models and see what changes.</p></div>
+        <div class="step"><div class="step-num">03</div><h3>Explain it back</h3><p>Teach the idea to your AI tutor. If you can explain it, you understand it.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="tutor" class="wrap split">
+    <div class="img" role="img" aria-label="Mockup of a chat conversation with an AI tutor">
+      <img src="https://picsum.photos/seed/lumen-tutor/900/900" alt="" loading="lazy" width="900" height="900">
+      <div class="chat">
+        <div class="bubble you">Why does a model need so much data?</div>
+        <div class="bubble ai">Think of learning to recognise dogs. After 3 photos you'd guess. After 3,000 you'd just <em>know</em>. Models are the same — more examples, sharper patterns.</div>
+        <div class="bubble you">So more data is always better?</div>
+        <div class="bubble ai typing"><i></i><i></i><i></i></div>
+      </div>
+    </div>
+    <div>
+      <div class="eyebrow">Your personal tutor</div>
+      <h2 style="margin-top:24px">Ask anything. <em>Any time.</em></h2>
+      <p class="lede" style="margin-top:24px">A patient tutor beside every lesson. It adapts explanations to your level and never makes you feel silly for asking.</p>
+      <ul class="checks">
+        <li>Explains at your level <span>Always</span></li>
+        <li>Quizzes you on weak spots <span>Weekly</span></li>
+        <li>Available in 24 languages <span>Built in</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="quote wrap">
+    <blockquote>“I finally understand what's happening when I talk to an AI. Lumen made it feel like reading a good book.”</blockquote>
+    <div class="who"><img class="avatar" src="https://picsum.photos/seed/lumen-maya/120/120" alt="" width="44" height="44">Maya R. — Teacher, Lisbon</div>
+  </section>
+
+  <div class="wrap" id="start">
+    <div class="cta">
+      <h2>Your first lesson takes <em style="color:var(--ink)">ten minutes.</em></h2>
+      <a href="#" class="btn">Start for free →</a>
+    </div>
+    <footer>
+      <span>© 2026 Lumen School of AI</span>
+      <span>Made with care · Privacy · Contact</span>
+    </footer>
+  </div>
+</main>
+
+</body>
+</html>
