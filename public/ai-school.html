@@ -6,140 +6,212 @@
 <title>Lumen — Learn AI, Calmly</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #f4f1ea;
-    --paper: #fbf9f4;
-    --ink: #1a1a17;
-    --muted: #6b675e;
-    --line: #dcd6c8;
-    --clay: #d9643a;
-    --sage: #9bb39a;
-    --sky: #a9c4d9;
-    --sand: #e8d5b0;
-    --night: #1f2a2b;
-    --serif: "Instrument Serif", Georgia, serif;
+    --bg: #f3f2ef;
+    --surface: #ffffff;
+    --soft: #e9e7e3;
+    --line: #e2dfd9;
+    --ink: #17171a;
+    --muted: #6f6c66;
+    --accent: #f25a1d;
+    --accent-soft: #fde6dc;
+    --dark: #141414;
     --sans: "Inter", system-ui, sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, monospace;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
-  body { background: var(--bg); color: var(--ink); font: 400 16px/1.6 var(--sans); -webkit-font-smoothing: antialiased; }
+  body { background: var(--bg); color: var(--ink); font: 400 15px/1.6 var(--sans); -webkit-font-smoothing: antialiased; }
   a { color: inherit; text-decoration: none; }
-  .wrap { max-width: 1200px; margin: 0 auto; padding-inline: 24px; }
+  img { display: block; max-width: 100%; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding-inline: 24px; }
+
+  h1, h2, h3 { font-weight: 600; letter-spacing: -0.035em; line-height: 1.05; }
+  h1 { font-size: clamp(40px, 6vw, 68px); }
+  h2 { font-size: clamp(30px, 4vw, 44px); }
+  h3 { font-size: 18px; letter-spacing: -0.02em; line-height: 1.3; }
+  .eyebrow { font-size: 12px; font-weight: 500; color: var(--accent); margin-bottom: 14px; }
+
+  /* Buttons */
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 9px 16px; border-radius: 8px; font-size: 13px; font-weight: 500; border: 1px solid transparent; transition: transform .2s ease, box-shadow .2s ease; }
+  .btn:hover { transform: translateY(-1px); box-shadow: 0 4px 14px rgba(0,0,0,.08); }
+  .btn-accent { background: var(--accent); color: #fff; }
+  .btn-white { background: var(--surface); border-color: var(--line); }
+
+  /* Cards */
+  .panel { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; }
+  .window { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; box-shadow: 0 20px 50px -20px rgba(0,0,0,.15); overflow: hidden; }
+  .window-bar { display: flex; align-items: center; gap: 6px; padding: 12px 16px; border-bottom: 1px solid var(--line); font-size: 12px; color: var(--muted); }
+  .window-bar i { width: 10px; height: 10px; border-radius: 50%; background: #ff5f57; }
+  .window-bar i:nth-child(2) { background: #febc2e; } .window-bar i:nth-child(3) { background: #28c840; }
+  .window-bar span { margin-left: auto; font-family: var(--mono); font-size: 11px; }
 
   /* Nav */
-  nav { display: flex; align-items: center; justify-content: space-between; padding: 28px 0; }
-  .logo { font: 400 28px/1 var(--serif); letter-spacing: -0.01em; display: flex; align-items: center; gap: 10px; }
-  .logo-dot { width: 14px; height: 14px; border-radius: 50%; background: var(--clay); box-shadow: 18px 0 0 -4px var(--ink); margin-right: 14px; }
-  .nav-links { display: flex; gap: 36px; font-size: 14px; color: var(--muted); }
+  nav { display: flex; align-items: center; justify-content: space-between; padding: 18px 0; }
+  .logo { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 17px; letter-spacing: -0.03em; }
+  .logo-mark { width: 22px; height: 22px; border-radius: 7px; background: var(--accent); position: relative; }
+  .logo-mark::after { content: ""; position: absolute; inset: 6px; border-radius: 50%; background: #fff; }
+  .nav-links { display: flex; gap: 28px; font-size: 13px; color: var(--muted); }
   .nav-links a:hover { color: var(--ink); }
-  .btn { display: inline-flex; align-items: center; gap: 10px; padding: 12px 22px; border-radius: 999px; font-size: 14px; font-weight: 500; transition: transform .2s ease, background .2s ease; }
-  .btn-dark { background: var(--ink); color: var(--paper); }
-  .btn-dark:hover { transform: translateY(-2px); }
-  .btn-ghost { border: 1px solid var(--ink); }
-  .btn-ghost:hover { background: var(--ink); color: var(--paper); }
+  .nav-cta { display: flex; gap: 8px; }
 
   /* Hero */
-  .hero { padding: 64px 0 96px; display: grid; grid-template-columns: 1.1fr 1fr; gap: 64px; align-items: end; }
-  .eyebrow { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); display: flex; align-items: center; gap: 10px; }
-  .eyebrow::before { content: ""; width: 28px; height: 1px; background: var(--ink); }
-  h1 { font: 400 clamp(56px, 8vw, 112px)/0.95 var(--serif); letter-spacing: -0.03em; margin: 28px 0 32px; }
-  h1 em { color: var(--clay); }
-  .lede { font-size: 18px; color: var(--muted); max-width: 440px; margin-bottom: 36px; }
-  .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+  .hero { text-align: center; padding: 24px 0 64px; }
+  .pill { display: inline-flex; align-items: center; gap: 8px; padding: 5px 12px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); font-size: 12px; color: var(--muted); }
+  .pill b { color: var(--ink); font-weight: 500; }
+  .hero-visual { position: relative; max-width: 640px; height: 320px; margin: 28px auto 36px; }
+  .hero-img { position: absolute; left: 50%; top: 50%; width: 260px; height: 260px; transform: translate(-50%, -50%); border-radius: 32px; overflow: hidden; box-shadow: 0 30px 60px -25px rgba(242,90,29,.45); }
+  .hero-img img, .tile img { width: 100%; height: 100%; object-fit: cover; }
+  .tile { position: absolute; width: 68px; height: 68px; border-radius: 16px; overflow: hidden; border: 3px solid var(--surface); box-shadow: 0 12px 24px -10px rgba(0,0,0,.25); animation: float 6s ease-in-out infinite; }
+  .tile:nth-child(2) { left: 6%;  top: 8%;     rotate: -12deg; }
+  .tile:nth-child(3) { left: 14%; bottom: 4%;  rotate: 8deg;  animation-delay: -2s; }
+  .tile:nth-child(4) { right: 6%; top: 2%;     rotate: 10deg; animation-delay: -4s; }
+  .tile:nth-child(5) { right: 12%; bottom: 10%; rotate: -6deg; animation-delay: -1s; }
+  @keyframes float { 50% { translate: 0 -10px; } }
+  .hero p { max-width: 520px; margin: 18px auto 28px; color: var(--muted); font-size: 16px; }
+  .hero-ctas { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
 
-  /* Mockup images */
-  .img { position: relative; overflow: hidden; border-radius: 6px; }
-  .img::after { /* film grain */
-    content: ""; position: absolute; inset: 0; opacity: .18; mix-blend-mode: multiply; pointer-events: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  }
-  .hero-img { aspect-ratio: 4/5; background: var(--night); }
-  .img > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) contrast(1.05); transition: transform .6s ease; }
-  .hero-img::before { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, transparent 55%, rgba(20,28,29,.7)); }
-  .caption { position: absolute; left: 20px; bottom: 18px; right: 20px; display: flex; justify-content: space-between; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.7); z-index: 2; }
-
-  /* Stats */
-  .stats { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--line); margin-bottom: 64px; }
-  .stats div { padding: 28px 24px 0 0; }
-  .stats div + div { padding-left: 24px; border-left: 1px solid var(--line); }
-  .stats b { display: block; font: 400 48px/1 var(--serif); letter-spacing: -0.02em; }
-  .stats span { font-size: 13px; color: var(--muted); }
-
-  /* Marquee strip */
-  .strip { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 22px 0; overflow: hidden; }
-  .strip-track { display: flex; gap: 56px; white-space: nowrap; animation: slide 30s linear infinite; font: italic 400 28px/1 var(--serif); color: var(--muted); }
-  .strip-track span::after { content: "✦"; font-style: normal; font-size: 14px; margin-left: 56px; color: var(--clay); vertical-align: middle; }
+  /* Logos + stats */
+  .trust { overflow: hidden; }
+  .trust-title { text-align: center; font-size: 12px; color: var(--muted); padding: 22px 16px 6px; }
+  .marquee { overflow: hidden; padding: 14px 0 22px; mask-image: linear-gradient(90deg, transparent, #000 15%, #000 85%, transparent); -webkit-mask-image: linear-gradient(90deg, transparent, #000 15%, #000 85%, transparent); }
+  .marquee-track { display: flex; gap: 56px; width: max-content; animation: slide 32s linear infinite; font-size: 19px; font-weight: 600; letter-spacing: -0.03em; color: #3a3935; white-space: nowrap; }
+  .marquee-track span:nth-child(3n+2) { font-weight: 400; font-style: italic; }
+  .marquee-track span:nth-child(4n) { font-family: var(--mono); font-size: 16px; font-weight: 500; }
   @keyframes slide { to { transform: translateX(-50%); } }
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--line); }
+  .stats div { padding: 22px 24px; text-align: center; }
+  .stats div + div { border-left: 1px solid var(--line); }
+  .stats b { display: block; font-size: 30px; font-weight: 600; letter-spacing: -0.04em; line-height: 1.1; }
+  .stats span { font-size: 12px; color: var(--muted); }
 
-  /* Section heads */
-  section { padding: 120px 0; }
-  .sec-head { display: flex; justify-content: space-between; align-items: end; gap: 40px; margin-bottom: 56px; }
-  h2 { font: 400 clamp(40px, 5vw, 68px)/1 var(--serif); letter-spacing: -0.02em; max-width: 640px; }
-  h2 em { color: var(--clay); }
-  .sec-head p { color: var(--muted); max-width: 340px; }
+  /* Sections */
+  .sec { padding-block: 96px; }
+  .sec-head { display: grid; grid-template-columns: 1.2fr 1fr; gap: 48px; align-items: end; margin-bottom: 48px; }
+  .sec-head p { color: var(--muted); }
+  .center { text-align: center; max-width: 620px; margin: 0 auto 40px; }
+  .center p { color: var(--muted); margin-top: 14px; }
+
+  /* Learning-paths diagram */
+  .paths { position: relative; height: 300px; }
+  .paths svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .paths path, .paths ellipse { fill: none; stroke: #cfcbc4; stroke-width: 1; vector-effect: non-scaling-stroke; }
+  .node { position: absolute; transform: translate(-50%, -50%); padding: 5px 10px; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); font: 500 12px var(--mono); color: var(--muted); white-space: nowrap; }
+  .hub { position: absolute; left: 50%; top: 50%; width: 64px; height: 64px; transform: translate(-50%, -50%); border-radius: 18px; background: var(--accent); box-shadow: 0 0 0 10px rgba(242,90,29,.12), 0 0 0 22px rgba(242,90,29,.06); }
+  .hub::after { content: ""; position: absolute; inset: 20px; border-radius: 50%; background: #fff; }
 
   /* Courses */
-  .courses { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-  .card { background: var(--paper); border: 1px solid var(--line); border-radius: 10px; padding: 14px 14px 24px; transition: transform .3s ease; }
-  .card:hover { transform: translateY(-6px); }
-  .card:hover .img > img { transform: scale(1.04); }
-  .card .img { aspect-ratio: 4/3; margin-bottom: 22px; }
-  .card-meta { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); padding: 0 8px; letter-spacing: .04em; }
-  .card h3 { font: 400 30px/1.1 var(--serif); padding: 10px 8px 8px; }
-  .card p { font-size: 14px; color: var(--muted); padding: 0 8px; }
-  .tag { display: inline-block; padding: 3px 10px; border: 1px solid var(--line); border-radius: 999px; }
-  .card .img { background: var(--line); }
+  .courses { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .course { padding: 10px 10px 20px; transition: transform .3s ease; }
+  .course:hover { transform: translateY(-4px); }
+  .course .thumb { aspect-ratio: 4/3; border-radius: 10px; overflow: hidden; margin-bottom: 16px; background: var(--soft); }
+  .course .thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; }
+  .course:hover .thumb img { transform: scale(1.04); }
+  .course-meta { display: flex; justify-content: space-between; padding: 0 6px; font-size: 12px; color: var(--muted); }
+  .tag { padding: 2px 8px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); font-weight: 500; }
+  .course h3 { padding: 10px 6px 6px; }
+  .course p { padding: 0 6px; font-size: 14px; color: var(--muted); }
 
-  /* Steps */
-  .dark { background: var(--night); color: var(--paper); }
-  .dark .sec-head p, .dark .step p { color: rgba(251,249,244,.6); }
-  .steps { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid rgba(251,249,244,.15); }
-  .step { padding: 36px 32px 0 0; }
-  .step + .step { padding-left: 32px; border-left: 1px solid rgba(251,249,244,.15); }
-  .step-num { font: italic 400 72px/1 var(--serif); color: var(--clay); }
-  .step h3 { font: 500 20px/1.3 var(--sans); margin: 24px 0 10px; }
+  .split { display: grid; grid-template-columns: 1fr 1.3fr; gap: 56px; align-items: center; margin-top: 96px; }
+  .split > * { min-width: 0; }
+  .split p { color: var(--muted); margin-top: 16px; }
+  .kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; padding: 18px 20px; }
+  .kpis b { display: block; font-size: 24px; font-weight: 600; letter-spacing: -0.04em; color: var(--accent); }
+  .kpis span { font-size: 11px; color: var(--muted); }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { text-align: left; font-weight: 500; font-size: 11px; color: var(--muted); padding: 8px 20px; border-top: 1px solid var(--line); }
+  td { padding: 11px 20px; border-top: 1px solid var(--line); }
+  td:last-child { font-family: var(--mono); font-size: 12px; color: var(--accent); }
+  .bar { display: block; width: 100%; height: 6px; border-radius: 99px; background: var(--soft); }
+  .bar i { display: block; height: 100%; border-radius: inherit; background: var(--accent); }
 
-  /* Feature split */
-  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; }
-  .split .img { aspect-ratio: 1; background: var(--line); }
-  .split .img > img { opacity: .55; }
-  .chat { position: absolute; inset: 12%; z-index: 2; display: flex; flex-direction: column; gap: 14px; justify-content: center; }
-  .bubble { padding: 14px 18px; border-radius: 18px; font-size: 14px; max-width: 78%; }
-  .bubble.you { background: var(--ink); color: var(--paper); align-self: flex-end; border-bottom-right-radius: 4px; }
-  .bubble.ai { background: var(--sand); border-bottom-left-radius: 4px; }
-  .typing { display: flex; gap: 5px; padding: 16px 18px; }
-  .typing i { width: 7px; height: 7px; border-radius: 50%; background: var(--muted); animation: blink 1.2s infinite; }
-  .typing i:nth-child(2) { animation-delay: .2s; } .typing i:nth-child(3) { animation-delay: .4s; }
-  @keyframes blink { 50% { opacity: .2; } }
-  .checks { list-style: none; margin-top: 32px; border-top: 1px solid var(--line); }
-  .checks li { padding: 18px 0; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; }
-  .checks li span { color: var(--muted); font-size: 14px; }
+  /* Method band */
+  .band { background: var(--soft); border-radius: 28px; margin-inline: 12px; }
+  .method { display: grid; grid-template-columns: 1.15fr 1fr; gap: 48px; align-items: center; }
+  .method > * { min-width: 0; }
+  .code { background: var(--dark); color: #d8d5cf; border-radius: 16px; overflow: hidden; box-shadow: 0 30px 60px -25px rgba(0,0,0,.5); }
+  .code .window-bar { border-color: rgba(255,255,255,.08); color: #8a877f; }
+  .code pre { font: 400 12.5px/1.75 var(--mono); padding: 18px 20px; overflow-x: auto; }
+  .code .c { color: #77746c; } .code .k { color: var(--accent); } .code .s { color: #e8c48a; }
+  .runs div { display: flex; justify-content: space-between; padding: 10px 20px; border-top: 1px solid rgba(255,255,255,.07); font: 500 12px var(--mono); }
+  .runs div.best { background: rgba(242,90,29,.18); color: #ffb08e; }
+  .step { padding: 22px 0; border-top: 1px solid #d6d3cd; }
+  .step:last-child { border-bottom: 1px solid #d6d3cd; }
+  .step-num { font: 500 12px var(--mono); color: var(--accent); }
+  .step h3 { margin: 6px 0 4px; }
+  .step p { font-size: 14px; color: var(--muted); }
 
-  /* Quote */
-  .quote { text-align: center; padding-block: 140px; }
-  blockquote { font: 400 clamp(32px, 4.4vw, 60px)/1.1 var(--serif); letter-spacing: -0.02em; max-width: 900px; margin: 0 auto 36px; }
-  .who { display: inline-flex; align-items: center; gap: 14px; font-size: 14px; color: var(--muted); }
-  .avatar { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; filter: grayscale(1); }
+  /* Tutor chat */
+  .chat { max-width: 760px; margin: 0 auto; }
+  .chat-body { padding: 40px 32px 28px; text-align: center; }
+  .buddy { width: 52px; height: 52px; margin: 0 auto 14px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #ff8a5a, var(--accent) 60%, #c23f0c); position: relative; }
+  .buddy::before, .buddy::after { content: ""; position: absolute; top: 20px; width: 6px; height: 8px; border-radius: 50%; background: #fff; }
+  .buddy::before { left: 17px; } .buddy::after { right: 17px; }
+  .chat-body h3 { font-size: 22px; margin-bottom: 22px; }
+  .ask { border: 1px solid var(--line); border-radius: 12px; padding: 14px; text-align: left; max-width: 560px; margin: 0 auto; }
+  .ask-input { font-size: 14px; color: #a19d96; margin-bottom: 18px; }
+  .ask-row { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+  .chip { padding: 3px 9px; border: 1px solid var(--line); border-radius: 999px; font-size: 11px; color: var(--muted); }
+  .send { margin-left: auto; width: 28px; height: 28px; border-radius: 8px; background: var(--accent); color: #fff; display: grid; place-items: center; font-size: 14px; }
+  .suggest { list-style: none; max-width: 560px; margin: 18px auto 0; text-align: left; }
+  .suggest li { padding: 8px 4px; font-size: 13px; color: var(--muted); border-bottom: 1px dashed var(--line); }
+  .suggest li::before { content: "↗"; color: var(--accent); margin-right: 10px; }
+  .chat-note { font-size: 11px; color: #a19d96; margin-top: 18px; }
 
-  /* CTA + footer */
-  .cta { background: var(--clay); color: var(--paper); border-radius: 16px; padding: 88px 64px; display: flex; justify-content: space-between; align-items: end; gap: 40px; margin-bottom: 64px; }
-  .cta h2 { color: var(--paper); }
-  .cta .btn { background: var(--paper); color: var(--ink); }
-  footer { border-top: 1px solid var(--line); padding: 32px 0 48px; display: flex; justify-content: space-between; font-size: 13px; color: var(--muted); }
+  /* Story */
+  .story { display: grid; grid-template-columns: 1.1fr 1fr; gap: 48px; align-items: center; }
+  .story > * { min-width: 0; }
+  blockquote { font-size: clamp(24px, 3vw, 34px); font-weight: 600; letter-spacing: -0.035em; line-height: 1.15; }
+  .who { display: flex; align-items: center; gap: 12px; margin-top: 22px; font-size: 13px; }
+  .who img { width: 36px; height: 36px; border-radius: 50%; }
+  .who span { display: block; color: var(--muted); font-size: 12px; }
+  .chart { width: 100%; height: auto; }
+  .chart text { font: 500 10px var(--mono); fill: var(--muted); }
+  .story-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 48px; }
+  .story-stats div { border-top: 1px solid var(--line); padding-top: 18px; }
+  .story-stats b { display: block; font-size: 36px; font-weight: 600; letter-spacing: -0.04em; }
+  .story-stats span { font-size: 13px; color: var(--muted); }
+
+  /* CTA */
+  .cta { background: var(--soft); border-radius: 28px; padding: 64px 32px; text-align: center; }
+  .badges { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; max-width: 760px; margin: 32px auto; }
+  .badges div { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 10px; }
+  .badges b { display: block; font-size: 15px; letter-spacing: -0.02em; }
+  .badges span { font-size: 11px; color: var(--muted); }
+  .cta p { color: var(--muted); max-width: 460px; margin: 0 auto 22px; font-size: 14px; }
+
+  /* Footer */
+  footer { background: var(--dark); color: #b9b5ad; margin-top: 96px; padding-top: 64px; overflow: hidden; }
+  .foot-cols { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 32px; font-size: 13px; }
+  .foot-cols .logo { color: #fff; margin-bottom: 10px; }
+  .foot-cols h4 { color: #fff; font-size: 12px; font-weight: 500; margin-bottom: 12px; }
+  .foot-cols a { display: block; padding: 3px 0; } .foot-cols a:hover { color: #fff; }
+  .foot-cols .logo { display: flex; }
+  .wordmark { font-size: clamp(120px, 27vw, 330px); font-weight: 700; letter-spacing: -0.07em; line-height: .8; color: rgba(255,255,255,.06); margin-top: 48px; user-select: none; }
+  .foot-bottom { display: flex; justify-content: space-between; gap: 16px; font-size: 12px; padding: 20px 0 28px; border-top: 1px solid rgba(255,255,255,.08); }
 
   @media (max-width: 860px) {
-    .nav-links { display: none; }
-    .hero, .split { grid-template-columns: 1fr; gap: 48px; }
-    .courses, .steps { grid-template-columns: 1fr; }
+    .nav-links, .nav-cta .btn-white { display: none; }
+    .hero-visual { height: 240px; }
+    .hero-img { width: 180px; height: 180px; border-radius: 24px; }
+    .tile { width: 50px; height: 50px; border-radius: 12px; }
     .stats { grid-template-columns: 1fr 1fr; }
-    .stats div:nth-child(3) { padding-left: 0; border-left: 0; }
-    .step + .step { padding-left: 0; border-left: 0; border-top: 1px solid rgba(251,249,244,.15); margin-top: 36px; }
-    .sec-head, .cta { flex-direction: column; align-items: start; }
-    .cta { padding: 56px 28px; }
-    section { padding: 88px 0; }
-    footer { flex-direction: column; gap: 8px; }
+    .stats div:nth-child(3) { border-left: 0; }
+    .stats div:nth-child(n+3) { border-top: 1px solid var(--line); }
+    .sec { padding-block: 72px; }
+    .sec-head, .split, .method, .story { grid-template-columns: 1fr; gap: 32px; }
+    .split { margin-top: 72px; }
+    .courses { grid-template-columns: 1fr; }
+    .paths { height: 260px; }
+    .node { font-size: 10px; padding: 4px 7px; }
+    .chat-body { padding: 32px 18px 24px; }
+    .foot-cols { grid-template-columns: 1fr 1fr; }
+    .band { margin-inline: 0; border-radius: 20px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
   }
 </style>
 </head>
@@ -147,126 +219,246 @@
 
 <header class="wrap">
   <nav>
-    <a href="#" class="logo"><span class="logo-dot"></span>Lumen</a>
+    <a href="#" class="logo"><span class="logo-mark"></span>lumen</a>
     <div class="nav-links">
       <a href="#courses">Courses</a>
       <a href="#method">Method</a>
       <a href="#tutor">AI Tutor</a>
+      <a href="#start">Pricing</a>
     </div>
-    <a href="#start" class="btn btn-dark">Start learning</a>
+    <div class="nav-cta">
+      <a href="#" class="btn btn-white">Sign in</a>
+      <a href="#start" class="btn btn-accent">Start learning</a>
+    </div>
   </nav>
 
   <div class="hero">
-    <div>
-      <div class="eyebrow">A school for curious minds</div>
-      <h1>Understand AI,<br><em>gently.</em></h1>
-      <p class="lede">Short, beautifully crafted lessons that take you from “what is a neural network?” to building your first model — no math anxiety required.</p>
-      <div class="hero-ctas">
-        <a href="#courses" class="btn btn-dark">Explore courses →</a>
-        <a href="#method" class="btn btn-ghost">How it works</a>
-      </div>
+    <a href="#start" class="pill"><b>New:</b> Lumen for Teams →</a>
+    <div class="hero-visual">
+      <div class="hero-img"><img src="https://picsum.photos/seed/lumen-hero/600/600" alt="Placeholder hero image" width="600" height="600"></div>
+      <div class="tile"><img src="https://picsum.photos/seed/lumen-t1/160/160" alt="" width="160" height="160"></div>
+      <div class="tile"><img src="https://picsum.photos/seed/lumen-t2/160/160" alt="" width="160" height="160"></div>
+      <div class="tile"><img src="https://picsum.photos/seed/lumen-t3/160/160" alt="" width="160" height="160"></div>
+      <div class="tile"><img src="https://picsum.photos/seed/lumen-t4/160/160" alt="" width="160" height="160"></div>
     </div>
-    <div class="img hero-img" role="img" aria-label="Placeholder photo">
-      <img src="https://picsum.photos/seed/lumen-hero/800/1000" alt="" width="800" height="1000">
-      <div class="caption"><span>Fig. 01 — Emergence</span><span>2026</span></div>
+    <h1>Understand AI,<br>one lesson at a time.</h1>
+    <p>Short, beautifully crafted lessons that take you from “what is a neural network?” to building your first model — no math anxiety required.</p>
+    <div class="hero-ctas">
+      <a href="#method" class="btn btn-white">How it works</a>
+      <a href="#start" class="btn btn-accent">Start for free</a>
     </div>
   </div>
 
-  <div class="stats">
-    <div><b>48k</b><span>Learners worldwide</span></div>
-    <div><b>10 min</b><span>Average lesson</span></div>
-    <div><b>4.9</b><span>Course rating</span></div>
-    <div><b>24</b><span>Languages</span></div>
+  <div class="panel trust">
+    <div class="trust-title">Trusted by learners at 900+ schools and teams</div>
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>northwind</span><span>Halcyon</span><span>Brightpath</span><span>oakridge.edu</span><span>fieldnote</span><span>Cobalt Labs</span><span>Meridian</span><span>tidewater</span>
+        <span>northwind</span><span>Halcyon</span><span>Brightpath</span><span>oakridge.edu</span><span>fieldnote</span><span>Cobalt Labs</span><span>Meridian</span><span>tidewater</span>
+      </div>
+    </div>
+    <div class="stats">
+      <div><b>48k</b><span>Learners worldwide</span></div>
+      <div><b>10 min</b><span>Average lesson</span></div>
+      <div><b>4.9</b><span>Course rating</span></div>
+      <div><b>24</b><span>Languages</span></div>
+    </div>
   </div>
 </header>
 
-<div class="strip" aria-hidden="true">
-  <div class="strip-track">
-    <span>Machine learning</span><span>Neural networks</span><span>Prompting</span><span>Ethics &amp; safety</span><span>Computer vision</span><span>Language models</span>
-    <span>Machine learning</span><span>Neural networks</span><span>Prompting</span><span>Ethics &amp; safety</span><span>Computer vision</span><span>Language models</span>
-  </div>
-</div>
-
 <main>
-  <section id="courses" class="wrap">
+  <section class="sec wrap">
     <div class="sec-head">
-      <h2>Three paths into <em>artificial intelligence</em></h2>
+      <div>
+        <div class="eyebrow">Learning paths</div>
+        <h2>Every big idea in AI, connected.</h2>
+      </div>
+      <p>Lumen maps how concepts build on each other, so each lesson starts from something you already understand.</p>
+    </div>
+    <div class="paths" aria-hidden="true">
+      <svg viewBox="0 0 1000 300" preserveAspectRatio="none">
+        <ellipse cx="500" cy="150" rx="300" ry="110"/>
+        <ellipse cx="500" cy="150" rx="170" ry="70"/>
+        <path d="M120 55 C 320 55, 380 150, 500 150"/>
+        <path d="M300 150 L 500 150"/>
+        <path d="M120 245 C 320 245, 380 150, 500 150"/>
+        <path d="M880 55 C 680 55, 620 150, 500 150"/>
+        <path d="M700 150 L 500 150"/>
+        <path d="M880 245 C 680 245, 620 150, 500 150"/>
+      </svg>
+      <span class="node" style="left:12%;top:18%">data</span>
+      <span class="node" style="left:30%;top:50%">patterns</span>
+      <span class="node" style="left:12%;top:82%">prompts</span>
+      <span class="node" style="left:88%;top:18%">models</span>
+      <span class="node" style="left:70%;top:50%">attention</span>
+      <span class="node" style="left:88%;top:82%">ethics</span>
+      <div class="hub"></div>
+    </div>
+  </section>
+
+  <section id="courses" class="sec wrap">
+    <div class="sec-head">
+      <div>
+        <div class="eyebrow">Courses</div>
+        <h2>Three paths into artificial intelligence.</h2>
+      </div>
       <p>Each course is about two hours, split into ten-minute lessons you can finish on a coffee break.</p>
     </div>
     <div class="courses">
-      <article class="card">
-        <div class="img"><img src="https://picsum.photos/seed/lumen-basics/800/600" alt="Placeholder image for the What is AI course" loading="lazy" width="800" height="600"></div>
-        <div class="card-meta"><span class="tag">Beginner</span><span>12 lessons</span></div>
+      <article class="panel course">
+        <div class="thumb"><img src="https://picsum.photos/seed/lumen-basics/800/600" alt="Placeholder image for the What is AI course" loading="lazy" width="800" height="600"></div>
+        <div class="course-meta"><span class="tag">Beginner</span><span>12 lessons</span></div>
         <h3>What is AI, really?</h3>
         <p>The ideas behind the headlines, explained with everyday examples and zero jargon.</p>
       </article>
-      <article class="card">
-        <div class="img"><img src="https://picsum.photos/seed/lumen-learn/800/600" alt="Placeholder image for the How machines learn course" loading="lazy" width="800" height="600"></div>
-        <div class="card-meta"><span class="tag">Intermediate</span><span>16 lessons</span></div>
+      <article class="panel course">
+        <div class="thumb"><img src="https://picsum.photos/seed/lumen-learn/800/600" alt="Placeholder image for the How machines learn course" loading="lazy" width="800" height="600"></div>
+        <div class="course-meta"><span class="tag">Intermediate</span><span>16 lessons</span></div>
         <h3>How machines learn</h3>
         <p>Data, patterns and predictions. Train a tiny model in your browser and watch it improve.</p>
       </article>
-      <article class="card">
-        <div class="img"><img src="https://picsum.photos/seed/lumen-neural/800/600" alt="Placeholder image for the Inside a neural network course" loading="lazy" width="800" height="600"></div>
-        <div class="card-meta"><span class="tag">Advanced</span><span>20 lessons</span></div>
+      <article class="panel course">
+        <div class="thumb"><img src="https://picsum.photos/seed/lumen-neural/800/600" alt="Placeholder image for the Inside a neural network course" loading="lazy" width="800" height="600"></div>
+        <div class="course-meta"><span class="tag">Advanced</span><span>20 lessons</span></div>
         <h3>Inside a neural network</h3>
         <p>Layers, weights and attention. Build intuition for how modern language models think.</p>
       </article>
     </div>
+
+    <div class="split">
+      <div>
+        <div class="eyebrow">Progress</div>
+        <h2>See exactly what you've learned.</h2>
+        <p>Every lesson ends with a short check. Lumen tracks your scores, spots weak areas and suggests what to revisit next.</p>
+      </div>
+      <div class="window" role="img" aria-label="Mockup of a learner progress dashboard">
+        <div class="window-bar"><i></i><i></i><i></i><span>LAST 30 DAYS</span></div>
+        <div class="kpis">
+          <div><b>72%</b><span>Course complete</span></div>
+          <div><b>+18%</b><span>Quiz average</span></div>
+          <div><b>9</b><span>Day streak</span></div>
+        </div>
+        <table>
+          <thead><tr><th>Module</th><th style="width:34%">Progress</th><th>Score</th></tr></thead>
+          <tbody>
+            <tr><td>What is AI?</td><td><span class="bar"><i style="width:100%"></i></span></td><td>94 ✓</td></tr>
+            <tr><td>Data &amp; patterns</td><td><span class="bar"><i style="width:80%"></i></span></td><td>88</td></tr>
+            <tr><td>Training a model</td><td><span class="bar"><i style="width:45%"></i></span></td><td>76</td></tr>
+            <tr><td>Attention</td><td><span class="bar"><i style="width:15%"></i></span></td><td>—</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </section>
 
-  <section id="method" class="dark">
-    <div class="wrap">
+  <section id="method" class="band">
+    <div class="sec wrap">
       <div class="sec-head">
-        <h2>Learning that <em>sticks</em></h2>
+        <div>
+          <div class="eyebrow">The Lumen method</div>
+          <h2>Learn by doing, not by watching.</h2>
+        </div>
         <p>We designed our method around how people actually learn: little and often, by doing.</p>
       </div>
-      <div class="steps">
-        <div class="step"><div class="step-num">01</div><h3>Read a short story</h3><p>Each concept starts as a narrative with an illustrated example you'll remember.</p></div>
-        <div class="step"><div class="step-num">02</div><h3>Play with it</h3><p>Interactive sandboxes let you tweak real models and see what changes.</p></div>
-        <div class="step"><div class="step-num">03</div><h3>Explain it back</h3><p>Teach the idea to your AI tutor. If you can explain it, you understand it.</p></div>
+      <div class="method">
+        <div class="code" role="img" aria-label="Mockup of a code sandbox training a small model">
+          <div class="window-bar"><i></i><i></i><i></i><span>sandbox.py</span></div>
+<pre><span class="c">$ lumen lesson start</span> <span class="s">"training-a-model"</span>
+<span class="c">› loading sandbox… ready</span>
+
+<span class="k">from</span> lumen <span class="k">import</span> tiny_model
+model = tiny_model(layers=<span class="s">2</span>)
+model.fit(examples, epochs=<span class="s">5</span>)</pre>
+          <div class="runs">
+            <div><span>epoch 1</span><span>loss 0.92</span></div>
+            <div><span>epoch 3</span><span>loss 0.41</span></div>
+            <div class="best"><span>epoch 5</span><span>loss 0.11 ✓</span></div>
+          </div>
+        </div>
+        <div class="steps">
+          <div class="step"><div class="step-num">01</div><h3>Read a short story</h3><p>Each concept starts as a narrative with an illustrated example you'll remember.</p></div>
+          <div class="step"><div class="step-num">02</div><h3>Play with it</h3><p>Interactive sandboxes let you tweak real models and see what changes.</p></div>
+          <div class="step"><div class="step-num">03</div><h3>Explain it back</h3><p>Teach the idea to your AI tutor. If you can explain it, you understand it.</p></div>
+        </div>
       </div>
     </div>
   </section>
 
-  <section id="tutor" class="wrap split">
-    <div class="img" role="img" aria-label="Mockup of a chat conversation with an AI tutor">
-      <img src="https://picsum.photos/seed/lumen-tutor/900/900" alt="" loading="lazy" width="900" height="900">
-      <div class="chat">
-        <div class="bubble you">Why does a model need so much data?</div>
-        <div class="bubble ai">Think of learning to recognise dogs. After 3 photos you'd guess. After 3,000 you'd just <em>know</em>. Models are the same — more examples, sharper patterns.</div>
-        <div class="bubble you">So more data is always better?</div>
-        <div class="bubble ai typing"><i></i><i></i><i></i></div>
-      </div>
-    </div>
-    <div>
+  <section id="tutor" class="sec wrap">
+    <div class="center">
       <div class="eyebrow">Your personal tutor</div>
-      <h2 style="margin-top:24px">Ask anything. <em>Any time.</em></h2>
-      <p class="lede" style="margin-top:24px">A patient tutor beside every lesson. It adapts explanations to your level and never makes you feel silly for asking.</p>
-      <ul class="checks">
-        <li>Explains at your level <span>Always</span></li>
-        <li>Quizzes you on weak spots <span>Weekly</span></li>
-        <li>Available in 24 languages <span>Built in</span></li>
-      </ul>
+      <h2>Ask anything. Any time.</h2>
+      <p>A patient tutor beside every lesson. It adapts explanations to your level and never makes you feel silly for asking.</p>
+    </div>
+    <div class="window chat" role="img" aria-label="Mockup of the AI tutor chat">
+      <div class="window-bar"><i></i><i></i><i></i></div>
+      <div class="chat-body">
+        <div class="buddy"></div>
+        <h3>What do you want to learn?</h3>
+        <div class="ask">
+          <div class="ask-input">Ask your tutor a question…</div>
+          <div class="ask-row"><span class="chip">Beginner</span><span class="chip">Explain simply</span><span class="chip">24 languages</span><span class="send">↑</span></div>
+        </div>
+        <ul class="suggest">
+          <li>Why does a model need so much data?</li>
+          <li>What's the difference between AI and machine learning?</li>
+          <li>Quiz me on what I learned yesterday</li>
+        </ul>
+        <div class="chat-note">Answers are grounded in your course material.</div>
+      </div>
     </div>
   </section>
 
-  <section class="quote wrap">
-    <blockquote>“I finally understand what's happening when I talk to an AI. Lumen made it feel like reading a good book.”</blockquote>
-    <div class="who"><img class="avatar" src="https://picsum.photos/seed/lumen-maya/120/120" alt="" width="44" height="44">Maya R. — Teacher, Lisbon</div>
+  <section class="sec wrap">
+    <div class="story">
+      <div>
+        <div class="eyebrow">Learner story</div>
+        <blockquote>“I finally understand what's happening when I talk to an AI. Lumen made it feel like reading a good book.”</blockquote>
+        <div class="who"><img src="https://picsum.photos/seed/lumen-maya/120/120" alt="" width="36" height="36"><div>Maya R.<span>Teacher, Lisbon</span></div></div>
+      </div>
+      <svg class="chart" viewBox="0 0 400 240" role="img" aria-label="Chart: quiz scores rising over six weeks">
+        <defs><linearGradient id="fade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f25a1d" stop-opacity=".22"/><stop offset="1" stop-color="#f25a1d" stop-opacity="0"/></linearGradient></defs>
+        <line x1="10" y1="210" x2="390" y2="210" stroke="#e2dfd9"/>
+        <path d="M10 200 C 140 196, 240 170, 300 110 S 370 30, 390 20 L 390 210 L 10 210 Z" fill="url(#fade)"/>
+        <path d="M10 200 C 140 196, 240 170, 300 110 S 370 30, 390 20" fill="none" stroke="#f25a1d" stroke-width="2"/>
+        <circle cx="390" cy="20" r="4" fill="#f25a1d"/>
+        <text x="10" y="230">Week 1</text><text x="352" y="230">Week 6</text>
+      </svg>
+    </div>
+    <div class="story-stats">
+      <div><b>+38%</b><span>Higher quiz scores after six weeks</span></div>
+      <div><b>14 days</b><span>Average time to a first project</span></div>
+    </div>
   </section>
 
-  <div class="wrap" id="start">
+  <section id="start" class="wrap">
     <div class="cta">
-      <h2>Your first lesson takes <em style="color:var(--ink)">ten minutes.</em></h2>
-      <a href="#" class="btn">Start for free →</a>
+      <h2>Your first lesson takes ten minutes.</h2>
+      <div class="badges">
+        <div><b>Free</b><span>to start</span></div>
+        <div><b>Certificates</b><span>on completion</span></div>
+        <div><b>24</b><span>languages</span></div>
+        <div><b>Offline</b><span>lessons</span></div>
+        <div><b>Teams</b><span>&amp; classrooms</span></div>
+      </div>
+      <p>No credit card, no jargon. Start with one short lesson and see if it clicks.</p>
+      <a href="#" class="btn btn-accent">Start for free →</a>
     </div>
-    <footer>
-      <span>© 2026 Lumen School of AI</span>
-      <span>Made with care · Privacy · Contact</span>
-    </footer>
-  </div>
+  </section>
 </main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-cols">
+      <div><a href="#" class="logo"><span class="logo-mark"></span>lumen</a><p>A calm school for curious minds.</p></div>
+      <div><h4>Learn</h4><a href="#courses">Courses</a><a href="#method">Method</a><a href="#tutor">AI Tutor</a><a href="#start">Pricing</a></div>
+      <div><h4>Company</h4><a href="#">About</a><a href="#">Careers</a><a href="#">Contact</a></div>
+      <div><h4>Legal</h4><a href="#">Privacy</a><a href="#">Terms</a></div>
+    </div>
+    <div class="wordmark" aria-hidden="true">lumen</div>
+    <div class="foot-bottom"><span>© 2026 Lumen School of AI</span><span>Made with care</span></div>
+  </div>
+</footer>
 
 </body>
 </html>

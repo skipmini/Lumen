@@ -29,3 +29,31 @@ All changes are in `public/ai-school.html`; nothing else was touched.
 - **Bug fix (was already there):** `.wrap { padding: 0 24px }` was overriding `section`'s vertical padding, so the Courses and Tutor sections had no top or bottom spacing. Changed it to `padding-inline`, and `.quote` to `padding-block`.
 - **Verified:** screenshots in headless Chrome at 1280px and 500px; the page has no horizontal overflow (scrollWidth = viewport width).
 - **Note:** the images need an internet connection (picsum.photos).
+
+---
+
+# Plan 2: Restyle after reference screenshot (SaaS-style, gray/white/orange)
+Same file (`public/ai-school.html`), no JS, keep copy, images and section IDs. Full plan: approved in chat.
+
+## Todo
+- [x] Swap design tokens and fonts: Inter + JetBrains Mono, gray/white/orange palette; remove Instrument Serif and the film-grain overlay
+- [x] Rebuild the nav and centred hero (announcement pill, image with floating tiles, pill buttons)
+- [x] Logos + stats card (CSS marquee of made-up wordmarks)
+- [x] "Learning paths" node diagram (inline SVG curves plus pills)
+- [x] Courses: restyled cards plus a "Your progress" mockup card
+- [x] Method: gray band, dark code card, 3 steps
+- [x] AI Tutor: chat UI card
+- [x] Testimonial with SVG line chart and stats
+- [x] CTA badge card, dark footer with giant wordmark
+- [x] Responsive pass (single breakpoint at 860px; everything stacks to one column, no sideways scroll)
+- [x] Verify (screenshots, overflow probe, console check), then add a review section
+
+## Review (Plan 2)
+Only `public/ai-school.html` changed. It's still one static file with no JavaScript, and the section IDs (`#courses`, `#method`, `#tutor`, `#start`) are kept.
+
+- **Look:** Instrument Serif and the cream/grayscale editorial style are replaced by Inter (600, tight tracking) and JetBrains Mono labels. The palette is warm-gray page, white hairline cards and a single orange accent (`--accent: #f25a1d`). The film-grain overlay is removed and photos are now in colour.
+- **Sections:** centred hero with an announcement pill and floating image tiles · logos + stats card (made-up wordmarks) · "Learning paths" SVG node diagram · course cards + "Your progress" dashboard mockup · Method on a gray band with a dark code card · AI Tutor chat card · testimonial with an SVG growth chart and two stats · CTA with badges · dark footer with a giant faded wordmark.
+- **Left out on purpose:** the reference's 3D cable illustration and the mascot row.
+- **Bonus:** added `prefers-reduced-motion` support, which turns off the marquee, the floating tiles and the hover animations.
+- **Verified:** screenshots in headless Chrome at 1280px and 500px. There's no horizontal overflow (scrollWidth = viewport width at both). The console was checked with `--enable-logging=stderr` and showed no errors.
+- **Known nits:** on mobile the 5th CTA badge sits alone on its row. Nav links are still hidden on mobile with no menu. Not committed or pushed.
